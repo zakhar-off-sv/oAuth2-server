@@ -1,7 +1,10 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
+        database:
+            id: App\Application\Provider\UserProvider
+    encoders:
+        App\Domain\Model\User: argon21
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

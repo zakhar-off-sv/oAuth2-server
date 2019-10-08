@@ -22,9 +22,22 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Presentation\Api\Rest\Controller\:
+        resource: '../src/Presentation/Api/Rest/Controller'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    League\OAuth2\Server\AuthorizationServer:
+        arguments:
+            $clientRepository: '@App\Infrastructure\oAuth2Server\Bridge\ClientRepository'
+            $accessTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\AccessTokenRepository'
+            $scopeRepository: '@App\Infrastructure\oAuth2Server\Bridge\ScopeRepository'
+            $privateKey: '%env(OAUTH2_PRIVATE_KEY)%'
+            $encryptionKey: '%env(OAUTH2_ENCRYPTION_KEY)%'
+
+    League\OAuth2\Server\Grant\PasswordGrant:
+        arguments:
+            $userRepository: '@App\Infrastructure\oAuth2Server\Bridge\UserRepository'
+            $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\RefreshTokenRepository'

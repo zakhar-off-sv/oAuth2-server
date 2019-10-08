@@ -11,10 +11,12 @@ use Ramsey\Uuid\UuidInterface;
 final class UserRepository implements UserRepositoryInterface
 {
     private const ENTITY = User::class;
+
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
     /**
      * @var ObjectRepository
      */

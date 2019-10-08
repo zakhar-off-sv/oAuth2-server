@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\oAuth2Server\Bridge;
 
+use App\Domain\Repository\ClientRepositoryInterface as AppClientRepositoryInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
-use App\Domain\Repository\ClientRepositoryInterface as AppClientRepositoryInterface;
 
 final class ClientRepository implements ClientRepositoryInterface
 {

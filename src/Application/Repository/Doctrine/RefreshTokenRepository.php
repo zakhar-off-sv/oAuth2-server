@@ -2,14 +2,14 @@
 
 namespace App\Application\Repository\Doctrine;
 
-use App\Domain\Model\Client;
-use App\Domain\Repository\ClientRepositoryInterface;
+use App\Domain\Model\RefreshToken;
+use App\Domain\Repository\RefreshTokenRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class ClientRepository implements ClientRepositoryInterface
+final class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
-    private const ENTITY = Client::class;
+    private const ENTITY = RefreshToken::class;
 
     /**
      * @var EntityManagerInterface
@@ -33,12 +33,14 @@ final class ClientRepository implements ClientRepositoryInterface
         $this->objectRepository = $this->entityManager->getRepository(self::ENTITY);
     }
 
-    /**
-     * @param string $clientId
-     * @return Client|null
-     */
-    public function findActive(string $clientId): ?Client
+    public function find(string $refreshTokenId): ?RefreshToken
     {
-        return $this->objectRepository->findOneBy(['id' => $clientId, 'active' => true]);
+        return $this->entityManager->find(self::ENTITY, $refreshTokenId);
+    }
+
+    public function save(RefreshToken $refreshToken): void
+    {
+        $this->entityManager->persist($refreshToken);
+        $this->entityManager->flush();
     }
 }

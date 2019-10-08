@@ -16,6 +16,7 @@ final class AuthController
      * @var AuthorizationServer
      */
     private $authorizationServer;
+
     /**
      * @var PasswordGrant
      */

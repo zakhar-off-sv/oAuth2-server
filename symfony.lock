@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v3.2.2"
+    },
     "defuse/php-encryption": {
         "version": "v2.2.1"
     },

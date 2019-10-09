@@ -3,6 +3,7 @@
 namespace App\Infrastructure\oAuth2Server\Bridge\Repository;
 
 use App\Domain\Repository\UserRepositoryInterface as AppUserRepositoryInterface;
+use App\Infrastructure\oAuth2Server\Bridge\Entity\User;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;

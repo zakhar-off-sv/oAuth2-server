@@ -4,7 +4,8 @@ security:
         database:
             id: App\Application\Provider\UserProvider
     encoders:
-        App\Domain\Model\User: argon21
+        App\Domain\Model\User:
+            algorithm: 'argon2i'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

@@ -46,15 +46,14 @@ final class AuthController
         ServerRequestInterface $serverRequest
     ): ?Psr7Response
     {
-        $this->passwordGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
-        $this->authorizationServer->enableGrantType(
-            $this->passwordGrant,
-            new \DateInterval('PT1H')
-        );
-        return $this->authorizationServer->respondToAccessTokenRequest($serverRequest, new Psr7Response());
-        /*return $this->withErrorHandling(function () use ($serverRequest) {
-
-        });*/
+        return $this->withErrorHandling(function () use ($serverRequest) {
+            $this->passwordGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
+            $this->authorizationServer->enableGrantType(
+                $this->passwordGrant,
+                new \DateInterval('PT1H')
+            );
+            return $this->authorizationServer->respondToAccessTokenRequest($serverRequest, new Psr7Response());
+        });
     }
 
     private function withErrorHandling($callback): ?Psr7Response

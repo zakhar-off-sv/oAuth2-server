@@ -5,7 +5,7 @@ security:
             id: App\Application\Provider\UserProvider
     encoders:
         App\Domain\Model\User:
-            algorithm: 'argon2i'
+            algorithm: 'auto'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

@@ -28,9 +28,13 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getNewToken(ClientEntityInterface $clientEntity, array $scopes, $userIdentifier = null): AccessTokenEntityInterface
+    public function getNewToken(
+        ClientEntityInterface $clientEntity,
+        array $scopes,
+        $userIdentifier = null
+    ): AccessTokenEntityInterface
     {
-        return new AccessToken($userIdentifier, $scopes);
+        return new AccessToken($clientEntity, $scopes, $userIdentifier);
     }
 
     /**
@@ -46,7 +50,10 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
             false,
             new \DateTime(),
             new \DateTime(),
-            $accessTokenEntity->getExpiryDateTime()
+            (function ($dateTimeImmutable) {
+                $dateTime = new \DateTime();
+                return $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            })($accessTokenEntity->getExpiryDateTime())
         );
         $this->appAccessTokenRepository->save($appAccessToken);
     }

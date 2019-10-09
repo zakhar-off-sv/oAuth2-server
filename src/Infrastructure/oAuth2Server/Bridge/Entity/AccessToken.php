@@ -3,6 +3,7 @@
 namespace App\Infrastructure\oAuth2Server\Bridge\Entity;
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
 use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
@@ -13,14 +14,22 @@ final class AccessToken implements AccessTokenEntityInterface
 
     /**
      * AccessToken constructor.
-     * @param string $userIdentifier
+     * @param ClientEntityInterface $clientEntity
      * @param array $scopes
+     * @param null $userIdentifier
      */
-    public function __construct(string $userIdentifier, array $scopes = [])
+    public function __construct(
+        ClientEntityInterface $clientEntity,
+        array $scopes = [],
+        $userIdentifier = null
+    )
     {
-        $this->setUserIdentifier($userIdentifier);
+        $this->setClient($clientEntity);
         foreach ($scopes as $scope) {
             $this->addScope($scope);
+        }
+        if ($userIdentifier !== null) {
+            $this->setUserIdentifier($userIdentifier);
         }
     }
 }

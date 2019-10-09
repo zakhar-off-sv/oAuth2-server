@@ -40,7 +40,10 @@ final class RefreshTokenRepository implements RefreshTokenRepositoryInterface
         $refreshTokenPersistEntity = new AppRefreshToken(
             $refreshTokenEntity->getIdentifier(),
             $refreshTokenEntity->getAccessToken()->getIdentifier(),
-            $refreshTokenEntity->getExpiryDateTime()
+            (function ($dateTimeImmutable) {
+                $dateTime = new \DateTime();
+                return $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            })($refreshTokenEntity->getExpiryDateTime())
         );
         $this->appRefreshTokenRepository->save($refreshTokenPersistEntity);
     }

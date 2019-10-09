@@ -18,7 +18,13 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{
+            Domain/Model,
+            Infrastructure/oAuth2Server/Bridge/Entity,
+            Infrastructure/Persistence,
+            Kernel.php
+        }'
+        # exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -31,13 +37,13 @@ services:
 
     League\OAuth2\Server\AuthorizationServer:
         arguments:
-            $clientRepository: '@App\Infrastructure\oAuth2Server\Bridge\ClientRepository'
-            $accessTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\AccessTokenRepository'
-            $scopeRepository: '@App\Infrastructure\oAuth2Server\Bridge\ScopeRepository'
+            $clientRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\ClientRepository'
+            $accessTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\AccessTokenRepository'
+            $scopeRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\ScopeRepository'
             $privateKey: '%env(OAUTH2_PRIVATE_KEY)%'
             $encryptionKey: '%env(OAUTH2_ENCRYPTION_KEY)%'
 
     League\OAuth2\Server\Grant\PasswordGrant:
         arguments:
-            $userRepository: '@App\Infrastructure\oAuth2Server\Bridge\UserRepository'
-            $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\RefreshTokenRepository'
+            $userRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\UserRepository'
+            $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository'

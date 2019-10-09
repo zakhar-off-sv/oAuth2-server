@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\oAuth2Server\Bridge;
+namespace App\Infrastructure\oAuth2Server\Bridge\Repository;
 
 use App\Domain\Model\RefreshToken as AppRefreshToken;
 use App\Domain\Repository\RefreshTokenRepositoryInterface as AppRefreshTokenRepositoryInterface;

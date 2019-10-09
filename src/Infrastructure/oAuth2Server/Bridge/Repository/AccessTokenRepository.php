@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\oAuth2Server\Bridge;
+namespace App\Infrastructure\oAuth2Server\Bridge\Repository;
 
 use App\Domain\Model\AccessToken as AppAccessToken;
 use App\Domain\Repository\AccessTokenRepositoryInterface as AppAccessTokenRepositoryInterface;

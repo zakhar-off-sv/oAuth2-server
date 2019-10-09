@@ -6,7 +6,6 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Zend\Diactoros\Response as Psr7Response;
 
@@ -38,20 +37,21 @@ final class AuthController
 
     /**
      * @Route("accessToken", name="api_get_access_token", methods={"POST"})
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface $serverRequest
      * @return null|Psr7Response
      * @throws \Exception
      */
-    public function getAccessToken(ServerRequestInterface $request): ?Psr7Response
+    public function getAccessToken(
+        ServerRequestInterface $serverRequest
+    ): ?Psr7Response
     {
-        $this->passwordGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
-        return $this->withErrorHandling(function () use ($request) {
+        return $this->withErrorHandling(function () use ($serverRequest) {
             $this->passwordGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
             $this->authorizationServer->enableGrantType(
                 $this->passwordGrant,
                 new \DateInterval('PT1H')
             );
-            return $this->authorizationServer->respondToAccessTokenRequest($request, new Psr7Response());
+            return $this->authorizationServer->respondToAccessTokenRequest($serverRequest, new Psr7Response());
         });
     }
 

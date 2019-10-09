@@ -20,11 +20,11 @@ services:
         resource: '../src/*'
         exclude: '../src/{
             Domain/Model,
+            DataFixtures,
             Infrastructure/oAuth2Server/Bridge/Entity,
             Infrastructure/Persistence,
             Kernel.php
         }'
-        # exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

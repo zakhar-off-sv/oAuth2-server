@@ -21,6 +21,7 @@
         "zendframework/zend-diactoros": "^2.1"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.2"
     },
     "config": {
         "preferred-install": {

@@ -32,7 +32,12 @@ final class ClientRepository implements ClientRepositoryInterface
         if ($appClient === null) {
             return null;
         }
-        $oauthClient = new Client($clientIdentifier, $appClient->getName(), $appClient->getRedirect());
+        $oauthClient = new Client(
+            $clientIdentifier,
+            $appClient->getName(),
+            $appClient->getRedirect(),
+            $appClient->isConfidential()
+        );
         return $oauthClient;
     }
 

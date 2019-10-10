@@ -11,8 +11,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class TokenSubscriber implements EventSubscriberInterface
@@ -43,17 +43,12 @@ final class TokenSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param FilterControllerEvent $event
+     * @param ControllerEvent $event
      * @throws OAuthServerException
      */
-    public function onKernelController(FilterControllerEvent $event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
-        /*
-         * $controller passed can be either a class or a Closure.
-         * This is not usual in Symfony but it may happen.
-         * If it is a class, it comes in array format
-         */
         if (!\is_array($controller)) {
             return;
         }
@@ -86,9 +81,9 @@ final class TokenSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param GetResponseForExceptionEvent $event
+     * @param ExceptionEvent $event
      */
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getException();
         if (!($exception instanceof OAuthServerException)) {

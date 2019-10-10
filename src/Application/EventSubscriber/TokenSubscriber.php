@@ -5,8 +5,9 @@ namespace App\Application\EventSubscriber;
 use App\Presentation\Api\Rest\Controller\TokenAuthenticatedController;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\ResourceServer;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,11 @@ final class TokenSubscriber implements EventSubscriberInterface
         }
         if ($controller[0] instanceof TokenAuthenticatedController) {
             $request = $event->getRequest();
-            $psrRequest = (new DiactorosFactory)->createRequest($request);
+            $psrRequest = (function (Request $symfonyRequest) {
+                $psr17Factory = new Psr17Factory();
+                $psrHttpFactory = new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory);
+                return $psrHttpFactory->createRequest($symfonyRequest);
+            })($request);
             try {
                 $psrRequest = $this->resourceServer->validateAuthenticatedRequest($psrRequest);
             } catch (OAuthServerException $exception) {

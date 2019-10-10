@@ -1,0 +1,10 @@
+FROM php:7.2-fpm
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev mysql-client
+
+RUN docker-php-ext-install pdo_mysql
+
+RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+WORKDIR /app

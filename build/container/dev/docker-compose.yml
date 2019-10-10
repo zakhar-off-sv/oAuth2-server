@@ -1,0 +1,56 @@
+version: "3.1"
+services:
+    nginx:
+        build:
+            context: ./docker
+            dockerfile: nginx.docker
+        container_name: oauth2-server-nginx
+        volumes:
+            - ../../../:/app
+        depends_on:
+            - php-fpm
+        ports:
+            - "8081:80"
+    php-fpm:
+        build:
+            context: ./docker
+            dockerfile: php-fpm.docker
+        container_name: oauth2-server-php-fpm
+        volumes:
+            - ../../../:/app
+        environment:
+            DATABASE_URL: mysql://admin:admin@mysql:3306/oauth2-server
+            OAUTH2_PRIVATE_KEY: /tmp/private.key
+            OAUTH2_PUBLIC_KEY: /tmp/public.key
+        depends_on:
+            - mysql
+    php-cli:
+        build:
+            context: ./docker
+            dockerfile: php-cli.docker
+        container_name: oauth2-server-php-cli
+        volumes:
+            - ../../../:/app
+            - oauth2-server-composer:/root/.composer/cache
+        environment:
+            DATABASE_URL: mysql://admin:admin@mysql:3306/oauth2-server
+            OAUTH2_PRIVATE_KEY: /app/certificates/private.key
+            OAUTH2_PUBLIC_KEY: /app/certificates/public.key
+        depends_on:
+            - mysql
+    mysql:
+        image: mysql:5.7
+        container_name: oauth2-server-mysql
+        volumes:
+            - oauth2-server-mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: oauth2-server
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+        ports:
+            - "33061:3306"
+
+volumes:
+    oauth2-server-mysql-data:
+    oauth2-server-composer:

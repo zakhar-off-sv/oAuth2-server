@@ -29,6 +29,11 @@ class Client
     /**
      * @var bool
      */
+    private $confidential;
+
+    /**
+     * @var bool
+     */
     private $active;
 
     /**
@@ -91,6 +96,22 @@ class Client
     public function setRedirect(string $redirect): void
     {
         $this->redirect = $redirect;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConfidential(): bool
+    {
+        return $this->confidential;
+    }
+
+    /**
+     * @param bool $confidential
+     */
+    public function setConfidential(bool $confidential): void
+    {
+        $this->confidential = $confidential;
     }
 
     /**

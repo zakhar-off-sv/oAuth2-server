@@ -4,6 +4,7 @@
         <field name="name" type="string"/>
         <field name="secret" type="string"/>
         <field name="redirect" type="string"/>
+        <field name="confidential" type="boolean"/>
         <field name="active" type="boolean"/>
     </entity>
 </doctrine-mapping>

@@ -47,3 +47,8 @@ services:
         arguments:
             $userRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\UserRepository'
             $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository'
+
+    League\OAuth2\Server\ResourceServer:
+        arguments:
+            $accessTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\AccessTokenRepository'
+            $publicKey: '%env(OAUTH2_PUBLIC_KEY)%'

@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\oAuth2Server\Bridge\Repository;
 
+use App\Domain\Model\Client as AppClient;
 use App\Domain\Repository\ClientRepositoryInterface as AppClientRepositoryInterface;
 use App\Infrastructure\oAuth2Server\Bridge\Entity\Client;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
@@ -46,8 +47,31 @@ final class ClientRepository implements ClientRepositoryInterface
      */
     public function validateClient($clientIdentifier, $clientSecret, $grantType)
     {
-        // Todo
-        // return hash_equals($appClient->getSecret(), (string)$clientSecret);
+        $appClient = $this->appClientRepository->findActive($clientIdentifier);
+        if ($appClient === null) {
+            return false;
+        }
+
+        if (!$this->isGrantSupported($appClient, $grantType)) {
+            return false;
+        }
+
+        if ($appClient->isConfidential()
+            && !hash_equals($appClient->getSecret(), (string)$clientSecret)
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param AppClient $client
+     * @param string|null $grantType
+     * @return bool
+     */
+    private function isGrantSupported(AppClient $client, ?string $grantType): bool
+    {
         return true;
     }
 }

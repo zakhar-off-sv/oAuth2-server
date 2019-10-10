@@ -7,4 +7,13 @@ RUN docker-php-ext-install pdo_mysql
 
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
+RUN openssl genrsa -out /tmp/private.key 2048
+RUN openssl rsa -in /tmp/private.key -pubout -out /tmp/public.key
+
+RUN chmod 660 /tmp/private.key
+RUN chmod 660 /tmp/public.key
+
+RUN chown 33:33 /tmp/private.key
+RUN chown 33:33 /tmp/public.key
+
 WORKDIR /app

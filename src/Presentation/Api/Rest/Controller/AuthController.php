@@ -14,6 +14,10 @@ use Zend\Diactoros\Response as Psr7Response;
 
 final class AuthController
 {
+    const ACCESS_TOKEN_TTL = 'PT1H'; // ttl is 1 hour
+    const REFRESH_TOKEN_TTL = 'P1M'; // ttl is 1 month
+    const AUTH_CODE_TTL = 'PT10M'; // ttl is 10 minutes
+
     /**
      * @var AuthorizationServer
      */
@@ -66,19 +70,19 @@ final class AuthController
 
             $this->authorizationServer->enableGrantType(
                 $this->clientCredentialsGrant,
-                new \DateInterval('PT1H')
+                new \DateInterval(self::ACCESS_TOKEN_TTL)
             );
 
-            $this->passwordGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
+            $this->passwordGrant->setRefreshTokenTTL(new \DateInterval(self::REFRESH_TOKEN_TTL));
             $this->authorizationServer->enableGrantType(
                 $this->passwordGrant,
-                new \DateInterval('PT1H')
+                new \DateInterval(self::ACCESS_TOKEN_TTL)
             );
 
-            $this->refreshTokenGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
+            $this->refreshTokenGrant->setRefreshTokenTTL(new \DateInterval(self::REFRESH_TOKEN_TTL));
             $this->authorizationServer->enableGrantType(
                 $this->refreshTokenGrant,
-                new \DateInterval('PT1H')
+                new \DateInterval(self::ACCESS_TOKEN_TTL)
             );
 
             return $this->authorizationServer->respondToAccessTokenRequest($serverRequest, new Psr7Response());

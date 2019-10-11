@@ -35,6 +35,8 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # configure League classes
+
     League\OAuth2\Server\AuthorizationServer:
         arguments:
             $clientRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\ClientRepository'
@@ -43,10 +45,21 @@ services:
             $privateKey: '%env(OAUTH2_PRIVATE_KEY)%'
             $encryptionKey: '%env(OAUTH2_ENCRYPTION_KEY)%'
 
+    # grants
+
+    League\OAuth2\Server\Grant\ClientCredentialsGrant:
+        arguments:
+
     League\OAuth2\Server\Grant\PasswordGrant:
         arguments:
             $userRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\UserRepository'
             $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository'
+
+    League\OAuth2\Server\Grant\RefreshTokenGrant:
+        arguments:
+            $refreshTokenRepository: '@App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository'
+
+    # auth
 
     League\OAuth2\Server\ResourceServer:
         arguments:

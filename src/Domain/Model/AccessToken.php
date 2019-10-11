@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 class AccessToken
@@ -10,7 +12,7 @@ class AccessToken
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $userId;
 
@@ -47,7 +49,7 @@ class AccessToken
     /**
      * Token constructor.
      * @param string $id
-     * @param string $userId
+     * @param string|null $userId
      * @param string $clientId
      * @param array $scopes
      * @param bool $revoked
@@ -57,7 +59,7 @@ class AccessToken
      */
     public function __construct(
         string $id,
-        string $userId,
+        ?string $userId,
         string $clientId,
         array $scopes,
         bool $revoked,
@@ -85,9 +87,9 @@ class AccessToken
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }

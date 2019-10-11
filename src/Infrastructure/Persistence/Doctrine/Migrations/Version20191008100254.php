@@ -25,7 +25,7 @@ final class Version20191008100254 extends AbstractMigration
         $this->addSql('
             CREATE TABLE access_token (
                 id VARCHAR(255) NOT NULL, 
-                user_id VARCHAR(255) NOT NULL, 
+                user_id VARCHAR(255) NULL, 
                 client_id VARCHAR(255) NOT NULL, 
                 scopes LONGTEXT NOT NULL, 
                 revoked TINYINT(1) NOT NULL, 

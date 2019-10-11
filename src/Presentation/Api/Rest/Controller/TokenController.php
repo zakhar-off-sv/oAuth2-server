@@ -16,7 +16,6 @@ final class TokenController
 {
     const ACCESS_TOKEN_TTL = 'PT1H'; // ttl is 1 hour
     const REFRESH_TOKEN_TTL = 'P1M'; // ttl is 1 month
-    const AUTH_CODE_TTL = 'PT10M'; // ttl is 10 minutes
 
     /**
      * @var AuthorizationServer

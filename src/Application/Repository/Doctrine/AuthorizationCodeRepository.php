@@ -2,14 +2,14 @@
 
 namespace App\Application\Repository\Doctrine;
 
-use App\Domain\Model\AccessToken;
-use App\Domain\Repository\AccessTokenRepositoryInterface;
+use App\Domain\Model\AuthorizationCode;
+use App\Domain\Repository\AuthorizationCodeRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class AccessTokenRepository implements AccessTokenRepositoryInterface
+final class AuthorizationCodeRepository implements AuthorizationCodeRepositoryInterface
 {
-    private const ENTITY = AccessToken::class;
+    private const ENTITY = AuthorizationCode::class;
 
     /**
      * @var EntityManagerInterface
@@ -33,14 +33,14 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
         $this->objectRepository = $this->entityManager->getRepository(self::ENTITY);
     }
 
-    public function find(string $accessTokenId): ?AccessToken
+    public function find(string $authCodeId): ?AuthorizationCode
     {
-        return $this->entityManager->find(self::ENTITY, $accessTokenId);
+        return $this->entityManager->find(self::ENTITY, $authCodeId);
     }
 
-    public function save(AccessToken $accessToken): void
+    public function save(AuthorizationCode $authCode): void
     {
-        $this->entityManager->persist($accessToken);
+        $this->entityManager->persist($authCode);
         $this->entityManager->flush();
     }
 }

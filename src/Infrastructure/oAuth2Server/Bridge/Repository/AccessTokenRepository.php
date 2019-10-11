@@ -50,10 +50,7 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
             false,
             new \DateTime(),
             new \DateTime(),
-            (function ($dateTimeImmutable) {
-                $dateTime = new \DateTime();
-                return $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
-            })($accessTokenEntity->getExpiryDateTime())
+            $accessTokenEntity->getExpiryDateTime()
         );
         $this->appAccessTokenRepository->save($appAccessToken);
     }
@@ -81,7 +78,7 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function isAccessTokenRevoked($tokenId): ?bool
+    public function isAccessTokenRevoked($tokenId): bool
     {
         $appAccessToken = $this->appAccessTokenRepository->find($tokenId);
         if ($appAccessToken === null) {

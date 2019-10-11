@@ -25,9 +25,9 @@ final class Version20191008100254 extends AbstractMigration
         $this->addSql('
             CREATE TABLE access_token (
                 id VARCHAR(255) NOT NULL, 
-                user_id VARCHAR(255) NULL, 
+                user_id VARCHAR(255) DEFAULT NULL, 
                 client_id VARCHAR(255) NOT NULL, 
-                scopes LONGTEXT NOT NULL, 
+                scopes JSON NOT NULL COMMENT \'(DC2Type:json_array)\', 
                 revoked TINYINT(1) NOT NULL, 
                 created_at DATETIME NOT NULL, 
                 updated_at DATETIME NOT NULL, 

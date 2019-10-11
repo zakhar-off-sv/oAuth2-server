@@ -22,7 +22,7 @@ class RefreshToken
     private $revoked = false;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     private $expiresAt;
 
@@ -30,9 +30,9 @@ class RefreshToken
      * RefreshToken constructor.
      * @param string $id
      * @param string $accessTokenId
-     * @param \DateTime $expiresAt
+     * @param \DateTimeInterface $expiresAt
      */
-    public function __construct(string $id, string $accessTokenId, \DateTime $expiresAt)
+    public function __construct(string $id, string $accessTokenId, \DateTimeInterface $expiresAt)
     {
         $this->id = $id;
         $this->accessTokenId = $accessTokenId;
@@ -61,9 +61,9 @@ class RefreshToken
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
-    public function getExpiresAt(): \DateTime
+    public function getExpiresAt(): \DateTimeInterface
     {
         return $this->expiresAt;
     }

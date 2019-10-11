@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-class AccessToken
+class AuthorizationCode
 {
     /**
      * @var string
@@ -29,17 +29,7 @@ class AccessToken
     /**
      * @var bool
      */
-    private $revoked;
-
-    /**
-     * @var \DateTimeInterface
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTimeInterface
-     */
-    private $updatedAt;
+    private $revoked = false;
 
     /**
      * @var \DateTimeInterface
@@ -53,8 +43,6 @@ class AccessToken
      * @param string $clientId
      * @param array $scopes
      * @param bool $revoked
-     * @param \DateTimeInterface $createdAt
-     * @param \DateTimeInterface $updatedAt
      * @param \DateTimeInterface $expiresAt
      */
     public function __construct(
@@ -63,8 +51,6 @@ class AccessToken
         string $clientId,
         array $scopes,
         bool $revoked,
-        \DateTimeInterface $createdAt,
-        \DateTimeInterface $updatedAt,
         \DateTimeInterface $expiresAt
     )
     {
@@ -73,8 +59,6 @@ class AccessToken
         $this->clientId = $clientId;
         $this->scopes = $scopes;
         $this->revoked = $revoked;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->expiresAt = $expiresAt;
     }
 
@@ -121,30 +105,6 @@ class AccessToken
     public function revoke(): void
     {
         $this->revoked = true;
-    }
-
-    /**
-     * @return \DateTimeInterface
-     */
-    public function getCreatedAt(): \DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @return \DateTimeInterface
-     */
-    public function getUpdatedAt(): \DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTimeInterface $updatedAt
-     */
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 
     /**

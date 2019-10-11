@@ -12,7 +12,7 @@ final class ScopeRepository implements ScopeRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getScopeEntityByIdentifier($identifier): ScopeEntityInterface
+    public function getScopeEntityByIdentifier($identifier): ?ScopeEntityInterface
     {
         if (Scope::hasScope($identifier)) {
             return new Scope($identifier);
@@ -23,7 +23,12 @@ final class ScopeRepository implements ScopeRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function finalizeScopes(array $scopes, $grantType, ClientEntityInterface $clientEntity, $userIdentifier = null): array
+    public function finalizeScopes(
+        array $scopes,
+        $grantType,
+        ClientEntityInterface $clientEntity,
+        $userIdentifier = null
+    ): array
     {
         $filteredScopes = [];
         /** @var Scope $scope */

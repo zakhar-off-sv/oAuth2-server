@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Zend\Diactoros\Response as Psr7Response;
 
-final class AuthController
+final class TokenController
 {
     const ACCESS_TOKEN_TTL = 'PT1H'; // ttl is 1 hour
     const REFRESH_TOKEN_TTL = 'P1M'; // ttl is 1 month
@@ -59,12 +59,12 @@ final class AuthController
     }
 
     /**
-     * @Route("token", name="oauth2_token", methods={"POST"})
+     * @Route("token", name="api_get_access_token", methods={"POST"})
      * @param ServerRequestInterface $serverRequest
      * @return Psr7Response
      * @throws \Exception
      */
-    public function getToken(ServerRequestInterface $serverRequest): Psr7Response
+    public function getAccessToken(ServerRequestInterface $serverRequest): Psr7Response
     {
         return $this->withErrorHandling(function () use ($serverRequest) {
 

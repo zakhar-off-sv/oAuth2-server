@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\oAuth2Server\Bridge\Entity;
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
@@ -16,12 +18,12 @@ final class AccessToken implements AccessTokenEntityInterface
      * AccessToken constructor.
      * @param ClientEntityInterface $clientEntity
      * @param array $scopes
-     * @param null $userIdentifier
+     * @param string|null $userIdentifier
      */
     public function __construct(
         ClientEntityInterface $clientEntity,
         array $scopes = [],
-        $userIdentifier = null
+        ?string $userIdentifier = null
     )
     {
         $this->setClient($clientEntity);

@@ -45,6 +45,7 @@ final class AuthorizationController
             $refreshTokenRepository,
             new \DateInterval('PT10M')
         );
+        $this->authCodeGrant->disableRequireCodeChallengeForPublicClients();
     }
 
     /**
@@ -62,8 +63,6 @@ final class AuthorizationController
                 $this->authCodeGrant,
                 new \DateInterval('PT1H')
             );
-
-            // Todo  https://oauth2.thephpleague.com/upgrade-guide/  Public Key Code Exchange (PKCE)
 
             $authRequest = $this->authorizationServer->validateAuthorizationRequest($serverRequest);
 

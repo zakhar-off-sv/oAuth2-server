@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\oAuth2Server\Bridge\Entity;
 
 use League\OAuth2\Server\Entities\ScopeEntityInterface;

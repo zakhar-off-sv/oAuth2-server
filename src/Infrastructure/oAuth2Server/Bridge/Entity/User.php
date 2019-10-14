@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\oAuth2Server\Bridge\Entity;
 
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
@@ -11,10 +13,12 @@ final class User implements UserEntityInterface
 
     /**
      * User constructor.
-     * @param $identifier
+     * @param string|null $identifier
      */
-    public function __construct($identifier)
+    public function __construct(?string $identifier = null)
     {
-        $this->setIdentifier($identifier);
+        if ($identifier !== null) {
+            $this->setIdentifier($identifier);
+        }
     }
 }

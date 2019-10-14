@@ -49,7 +49,7 @@ final class AuthorizationController
     }
 
     /**
-     * @Route("authorize", name="api_authorize", methods={"GET"})
+     * @Route("authorize", name="oauth2_authorize", methods={"GET"})
      * @param ServerRequestInterface $serverRequest
      * @return Psr7Response
      * @throws \Exception

@@ -1,4 +1,7 @@
-api_rest:
+controllers:
+    resource: ../../src/Application/Controller/
+    type: annotation
+oauth2:
     resource: ../../src/Presentation/Api/Rest/Controller/
     type: annotation
-    prefix: /api
+    prefix: /oauth2

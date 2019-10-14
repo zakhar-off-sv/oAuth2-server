@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class TestController implements TokenAuthenticatedController
 {
     /**
-     * @Route("test", name="api_test", methods={"GET"})
+     * @Route("test", name="oauth2_test", methods={"GET"})
      * @param Request $request
      * @return Response
      */

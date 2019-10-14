@@ -55,7 +55,7 @@ final class TokenController
     }
 
     /**
-     * @Route("token", name="api_get_access_token", methods={"POST"})
+     * @Route("token", name="oauth2_token", methods={"POST"})
      * @param ServerRequestInterface $serverRequest
      * @return Psr7Response
      * @throws \Exception

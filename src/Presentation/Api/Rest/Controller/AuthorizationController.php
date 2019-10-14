@@ -67,7 +67,7 @@ final class AuthorizationController
             $authRequest = $this->authorizationServer->validateAuthorizationRequest($serverRequest);
 
             $authRequest->setUser(new User());
-            $authRequest->setAuthorizationApproved(true);
+            $authRequest->setAuthorizationApproved(false);
 
             return $this->authorizationServer->completeAuthorizationRequest($authRequest, new Psr7Response());
         });

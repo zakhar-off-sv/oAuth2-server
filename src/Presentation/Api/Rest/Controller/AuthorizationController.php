@@ -63,8 +63,10 @@ final class AuthorizationController
                 new \DateInterval('PT1H')
             );
 
-            // Todo problem with 'redirect_uri'
+            // Todo  https://oauth2.thephpleague.com/upgrade-guide/  Public Key Code Exchange (PKCE)
+
             $authRequest = $this->authorizationServer->validateAuthorizationRequest($serverRequest);
+
             $authRequest->setUser(new User());
             $authRequest->setAuthorizationApproved(true);
 

@@ -11,10 +11,17 @@ use League\OAuth2\Server\Grant\AuthCodeGrant;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Zend\Diactoros\Response as Psr7Response;
 
 final class AuthorizationController
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
     /**
      * @var AuthorizationServer
      */
@@ -27,17 +34,21 @@ final class AuthorizationController
 
     /**
      * AuthorizationController constructor.
+     * @param Security $security
      * @param AuthorizationServer $authorizationServer
      * @param AuthCodeRepository $authCodeRepository
      * @param RefreshTokenRepository $refreshTokenRepository
      * @throws \Exception
      */
     public function __construct(
+        Security $security,
         AuthorizationServer $authorizationServer,
         AuthCodeRepository $authCodeRepository,
         RefreshTokenRepository $refreshTokenRepository
     )
     {
+        $this->security = $security;
+
         $this->authorizationServer = $authorizationServer;
 
         $this->authCodeGrant = new AuthCodeGrant(
@@ -52,7 +63,6 @@ final class AuthorizationController
      * @Route("authorize", name="oauth2_authorize", methods={"GET"})
      * @param ServerRequestInterface $serverRequest
      * @return Psr7Response
-     * @throws \Exception
      */
     public function authorize(ServerRequestInterface $serverRequest): Psr7Response
     {
@@ -66,8 +76,15 @@ final class AuthorizationController
 
             $authRequest = $this->authorizationServer->validateAuthorizationRequest($serverRequest);
 
-            $authRequest->setUser(new User());
-            $authRequest->setAuthorizationApproved(false);
+            // Todo так себе костыль (люди используют Event) это 'new User($user->getId()->toString())' похоже на зло
+            $user = $this->security->getUser();
+            if ($user instanceof UserInterface) {
+                $authRequest->setUser(new User($user->getId()->toString()));
+                $authRequest->setAuthorizationApproved(true);
+            } else {
+                $authRequest->setUser(new User());
+                $authRequest->setAuthorizationApproved(false);
+            }
 
             return $this->authorizationServer->completeAuthorizationRequest($authRequest, new Psr7Response());
         });

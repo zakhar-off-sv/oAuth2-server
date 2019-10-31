@@ -5,8 +5,6 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 
-//require dirname(__DIR__) . '/config/bootstrap.php';
-
 require dirname(__DIR__) . '/vendor/autoload.php';
 // The check is to ensure we don't use .env in production
 if (!isset($_SERVER['APP_ENV']) && !isset($_ENV['APP_ENV'])) {

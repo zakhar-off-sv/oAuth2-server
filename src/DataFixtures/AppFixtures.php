@@ -23,7 +23,6 @@ class AppFixtures extends Fixture
             $user = User::create("email-{$i}@dot818.com", "User{$i} Name");
             $password = $this->encoder->encodePassword($user, "pass_{$i}");
             $user->setPassword($password);
-            $user->setRoles(['user']);
             $user->setActive(rand(0, 1) ? true : false);
             $manager->persist($user);
         }

@@ -74,8 +74,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
                 'email' => $credentials['email'],
             ]))
         ) {
-            // fail authentication with a custom error
+            // username not found
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
+        }
+
+        if ($user->isActive() == false) {
+            // username is blocked
+            throw new CustomUserMessageAuthenticationException('Email is blocked.');
         }
 
         return $user;
@@ -95,7 +100,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
     protected function getLoginUrl()

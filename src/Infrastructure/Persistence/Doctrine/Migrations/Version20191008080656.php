@@ -24,10 +24,10 @@ final class Version20191008080656 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE user (
-                id VARCHAR(255) NOT NULL, 
-                name VARCHAR(255) NOT NULL, 
+                id CHAR(36) NOT NULL, 
+                name VARCHAR(128) NOT NULL, 
                 password VARCHAR(255) NOT NULL, 
-                email VARCHAR(255) NOT NULL, 
+                email VARCHAR(128) NOT NULL, 
                 roles JSON NOT NULL COMMENT \'(DC2Type:json_array)\', 
                 active TINYINT(1) NOT NULL, 
                 PRIMARY KEY(id)

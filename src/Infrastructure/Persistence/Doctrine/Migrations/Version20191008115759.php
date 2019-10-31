@@ -24,8 +24,8 @@ final class Version20191008115759 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE refresh_token (
-              id VARCHAR(255) NOT NULL, 
-              access_token_id VARCHAR(255) NOT NULL, 
+              id CHAR(80) NOT NULL, 
+              access_token_id CHAR(80) NOT NULL, 
               revoked TINYINT(1) NOT NULL, 
               expires_at DATETIME NOT NULL, 
               PRIMARY KEY(id)

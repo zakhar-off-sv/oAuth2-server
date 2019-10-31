@@ -24,7 +24,7 @@ class AccessToken
     /**
      * @var array
      */
-    private $scopes;
+    private $scopes = [];
 
     /**
      * @var bool

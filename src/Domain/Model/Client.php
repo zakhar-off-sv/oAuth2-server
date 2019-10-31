@@ -24,9 +24,9 @@ class Client
     private $secret;
 
     /**
-     * @var string
+     * @var array
      */
-    private $redirect;
+    private $redirect = [];
 
     /**
      * @var bool
@@ -85,17 +85,17 @@ class Client
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRedirect(): string
+    public function getRedirect(): array
     {
         return $this->redirect;
     }
 
     /**
-     * @param string $redirect
+     * @param array $redirect
      */
-    public function setRedirect(string $redirect): void
+    public function setRedirect(array $redirect): void
     {
         $this->redirect = $redirect;
     }

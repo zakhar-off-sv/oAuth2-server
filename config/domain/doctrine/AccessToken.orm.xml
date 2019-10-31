@@ -1,8 +1,20 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
     <entity name="App\Domain\Model\AccessToken">
-        <id name="id" column="id" type="string"/>
-        <field name="userId" type="string" nullable="true"/>
-        <field name="clientId" type="string"/>
+        <id name="id" column="id" type="string" length="80">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </id>
+        <field name="userId" type="string" length="36" nullable="true">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+        <field name="clientId" type="string" length="36">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
         <field name="scopes" type="json_array"/>
         <field name="revoked" type="boolean"/>
         <field name="createdAt" type="datetime"/>

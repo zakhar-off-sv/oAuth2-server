@@ -33,4 +33,5 @@ security:
     access_control:
         - { path: ^/sign-in, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/oauth2/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth2/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

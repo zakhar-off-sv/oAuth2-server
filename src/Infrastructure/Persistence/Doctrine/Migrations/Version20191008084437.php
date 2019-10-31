@@ -24,10 +24,10 @@ final class Version20191008084437 extends AbstractMigration
 
         $this->addSql('
             CREATE TABLE client (
-                id VARCHAR(255) NOT NULL, 
-                name VARCHAR(255) NOT NULL, 
-                secret VARCHAR(255) NOT NULL, 
-                redirect VARCHAR(255) NOT NULL, 
+                id CHAR(36) NOT NULL, 
+                name VARCHAR(128) NOT NULL, 
+                secret VARCHAR(128) NOT NULL, 
+                redirect JSON NOT NULL COMMENT \'(DC2Type:json_array)\', 
                 confidential TINYINT(1) NOT NULL, 
                 active TINYINT(1) NOT NULL, 
                 PRIMARY KEY(id)

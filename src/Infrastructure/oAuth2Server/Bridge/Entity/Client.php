@@ -16,19 +16,19 @@ final class Client implements ClientEntityInterface
      * Client constructor.
      * @param string $identifier
      * @param string $name
-     * @param string $redirectUri
+     * @param array $redirectUri
      * @param bool $isConfidential
      */
     public function __construct(
         string $identifier,
         string $name,
-        string $redirectUri,
+        array $redirectUri,
         bool $isConfidential
     )
     {
         $this->setIdentifier($identifier);
         $this->name = $name;
-        $this->redirectUri = explode(',', $redirectUri);
+        $this->redirectUri = $redirectUri;
         $this->isConfidential = $isConfidential;
     }
 }

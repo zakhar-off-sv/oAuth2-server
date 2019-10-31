@@ -24,7 +24,7 @@ class AuthorizationCode
     /**
      * @var array
      */
-    private $scopes;
+    private $scopes = [];
 
     /**
      * @var bool

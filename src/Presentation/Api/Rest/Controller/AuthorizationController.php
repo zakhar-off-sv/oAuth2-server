@@ -93,7 +93,6 @@ final class AuthorizationController
 
             $authRequest = $this->authorizationServer->validateAuthorizationRequest($serverRequest);
 
-            // Todo так себе костыль (люди используют Event) это 'new User($user->getId()->toString())' похоже на зло
             $user = $this->security->getUser();
             if ($user instanceof UserInterface) {
                 $authRequest->setUser(new User($user->getId()->toString()));

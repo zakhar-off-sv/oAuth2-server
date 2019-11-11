@@ -9,4 +9,6 @@ interface AccessTokenRepositoryInterface
     public function find(string $accessTokenId): ?AccessToken;
 
     public function save(AccessToken $accessToken): void;
+
+    public function clearExpired(): int;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Repository\Doctrine;
 
 use App\Domain\Model\AccessToken;
@@ -33,14 +35,33 @@ final class AccessTokenRepository implements AccessTokenRepositoryInterface
         $this->objectRepository = $this->entityManager->getRepository(self::ENTITY);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function find(string $accessTokenId): ?AccessToken
     {
         return $this->entityManager->find(self::ENTITY, $accessTokenId);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function save(AccessToken $accessToken): void
     {
         $this->entityManager->persist($accessToken);
         $this->entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clearExpired(): int
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->delete(self::ENTITY, 'at')
+            ->where('at.expiresAt < :expiry')
+            ->setParameter('expiry', new \DateTime())
+            ->getQuery()
+            ->execute();
     }
 }

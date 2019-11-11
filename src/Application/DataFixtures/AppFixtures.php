@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataFixtures;
+namespace App\Application\DataFixtures;
 
 use App\Domain\Model\Client;
 use App\Domain\Model\User;

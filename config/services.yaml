@@ -20,7 +20,6 @@ services:
         resource: '../src/*'
         exclude: '../src/{
             Domain/Model,
-            DataFixtures,
             Infrastructure/oAuth2Server/Bridge/Entity,
             Infrastructure/Persistence,
             Kernel.php

@@ -11,7 +11,6 @@ class Client
 {
     public const GRANT_AUTHORIZATION_CODE = 'authorization_code';
     public const GRANT_CLIENT_CREDENTIALS = 'client_credentials';
-    public const GRANT_IMPLICIT = 'implicit';
     public const GRANT_PASSWORD = 'password';
     public const GRANT_REFRESH_TOKEN = 'refresh_token';
 
@@ -136,7 +135,6 @@ class Client
             if (!\in_array($item, [
                 self::GRANT_AUTHORIZATION_CODE,
                 self::GRANT_CLIENT_CREDENTIALS,
-                self::GRANT_IMPLICIT,
                 self::GRANT_PASSWORD,
                 self::GRANT_REFRESH_TOKEN
             ])) {

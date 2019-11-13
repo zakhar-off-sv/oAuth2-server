@@ -8,7 +8,6 @@ use App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
-use League\OAuth2\Server\Grant\ImplicitGrant;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,11 +31,6 @@ final class AuthorizationController
      * @var AuthCodeGrant
      */
     private $authCodeGrant;
-
-    /**
-     * @var ImplicitGrant
-     */
-    private $implicitGrant;
 
     /**
      * AuthorizationController constructor.
@@ -65,10 +59,6 @@ final class AuthorizationController
             new \DateInterval('PT10M')
         );
         $this->authCodeGrant->disableRequireCodeChallengeForPublicClients();
-
-        $this->implicitGrant = new ImplicitGrant(
-            new \DateInterval('PT1H')
-        );
     }
 
     /**
@@ -83,11 +73,6 @@ final class AuthorizationController
             $this->authCodeGrant->setRefreshTokenTTL(new \DateInterval('P1M'));
             $this->authorizationServer->enableGrantType(
                 $this->authCodeGrant,
-                new \DateInterval('PT1H')
-            );
-
-            $this->authorizationServer->enableGrantType(
-                $this->implicitGrant,
                 new \DateInterval('PT1H')
             );
 

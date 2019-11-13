@@ -58,7 +58,6 @@ final class AuthorizationController
             $refreshTokenRepository,
             new \DateInterval('PT10M')
         );
-        $this->authCodeGrant->disableRequireCodeChallengeForPublicClients();
     }
 
     /**

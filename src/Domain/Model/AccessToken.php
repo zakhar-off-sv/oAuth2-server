@@ -29,7 +29,7 @@ class AccessToken
     /**
      * @var bool
      */
-    private $revoked;
+    private $revoked = false;
 
     /**
      * @var \DateTimeInterface

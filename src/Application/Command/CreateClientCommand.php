@@ -100,7 +100,7 @@ final class CreateClientCommand extends Command
     {
         $client = Client::create($input->getArgument('name'));
         $client->setSecret(hash('sha512', random_bytes(32)));
-        $client->setRedirect((array)$input->getOption('redirect'));
+        $client->setRedirect(...$input->getOption('redirect'));
         $client->setConfidential((bool)!$input->getOption('confidential'));
         $client->setActive((bool)!$input->getOption('inactive'));
         return $client;

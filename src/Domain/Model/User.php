@@ -32,7 +32,7 @@ class User implements UserInterface
     /**
      * @var bool
      */
-    private $active;
+    private $active = true;
 
     /**
      * User constructor.

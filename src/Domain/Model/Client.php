@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use Ramsey\Uuid\Uuid;
+use RuntimeException;
 
 class Client
 {
@@ -31,12 +32,12 @@ class Client
     /**
      * @var bool
      */
-    private $confidential;
+    private $confidential = false;
 
     /**
      * @var bool
      */
-    private $active;
+    private $active = true;
 
     /**
      * Client constructor.
@@ -93,10 +94,17 @@ class Client
     }
 
     /**
-     * @param array $redirect
+     * @param string ...$redirect
      */
-    public function setRedirect(array $redirect): void
+    public function setRedirect(string ...$redirect): void
     {
+        foreach ($redirect as $item) {
+            if (!\filter_var($item, FILTER_VALIDATE_URL)) {
+                throw new RuntimeException(
+                    sprintf('The \'%s\' string is not a valid URI.', $item)
+                );
+            }
+        }
         $this->redirect = $redirect;
     }
 

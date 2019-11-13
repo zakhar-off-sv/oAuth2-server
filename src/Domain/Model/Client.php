@@ -9,6 +9,12 @@ use RuntimeException;
 
 class Client
 {
+    public const GRANT_AUTHORIZATION_CODE = 'authorization_code';
+    public const GRANT_CLIENT_CREDENTIALS = 'client_credentials';
+    public const GRANT_IMPLICIT = 'implicit';
+    public const GRANT_PASSWORD = 'password';
+    public const GRANT_REFRESH_TOKEN = 'refresh_token';
+
     /**
      * @var string
      */
@@ -28,6 +34,11 @@ class Client
      * @var array
      */
     private $redirect = [];
+
+    /**
+     * @var array
+     */
+    private $grants = [];
 
     /**
      * @var bool
@@ -101,11 +112,40 @@ class Client
         foreach ($redirect as $item) {
             if (!\filter_var($item, FILTER_VALIDATE_URL)) {
                 throw new RuntimeException(
-                    sprintf('The \'%s\' string is not a valid URI.', $item)
+                    \sprintf('The \'%s\' string is not a valid URI.', $item)
                 );
             }
         }
         $this->redirect = $redirect;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGrants(): array
+    {
+        return $this->grants;
+    }
+
+    /**
+     * @param string ...$grants
+     */
+    public function setGrants(string ...$grants): void
+    {
+        foreach ($grants as $item) {
+            if (!\in_array($item, [
+                self::GRANT_AUTHORIZATION_CODE,
+                self::GRANT_CLIENT_CREDENTIALS,
+                self::GRANT_IMPLICIT,
+                self::GRANT_PASSWORD,
+                self::GRANT_REFRESH_TOKEN
+            ])) {
+                throw new RuntimeException(
+                    \sprintf('The \'%s\' grant is not supported.', $item)
+                );
+            }
+        }
+        $this->grants = $grants;
     }
 
     /**

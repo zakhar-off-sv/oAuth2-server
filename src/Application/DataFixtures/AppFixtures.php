@@ -31,6 +31,7 @@ class AppFixtures extends Fixture
             $client = Client::create("Client {$i}");
             $client->setSecret(hash('sha512', $client->getName()));
             $client->setRedirect('https://google.com/cb');
+            $client->setGrants('https://google.com/cb');
             $client->setConfidential(rand(0, 1) ? true : false);
             $client->setActive(true);
             $manager->persist($client);

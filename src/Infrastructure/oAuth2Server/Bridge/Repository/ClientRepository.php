@@ -72,6 +72,13 @@ final class ClientRepository implements ClientRepositoryInterface
      */
     private function isGrantSupported(AppClient $client, ?string $grantType): bool
     {
+        if ($grantType !== null
+            && $client->getGrants()
+            && !\in_array($grantType, $client->getGrants())
+        ) {
+            return false;
+        }
+
         return true;
     }
 }

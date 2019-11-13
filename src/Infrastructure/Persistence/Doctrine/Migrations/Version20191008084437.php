@@ -28,6 +28,7 @@ final class Version20191008084437 extends AbstractMigration
                 name VARCHAR(128) NOT NULL, 
                 secret VARCHAR(128) NOT NULL, 
                 redirect JSON NOT NULL COMMENT \'(DC2Type:json_array)\', 
+                grants JSON NOT NULL COMMENT \'(DC2Type:json_array)\', 
                 confidential TINYINT(1) NOT NULL, 
                 active TINYINT(1) NOT NULL, 
                 PRIMARY KEY(id)

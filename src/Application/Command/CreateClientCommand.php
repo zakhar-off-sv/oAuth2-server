@@ -47,6 +47,13 @@ final class CreateClientCommand extends Command
                 []
             )
             ->addOption(
+                'grant',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Sets allowed grant type for client. Use this option multiple times to set multiple grant types.',
+                []
+            )
+            ->addOption(
                 'confidential',
                 null,
                 InputOption::VALUE_NONE,
@@ -101,6 +108,7 @@ final class CreateClientCommand extends Command
         $client = Client::create($input->getArgument('name'));
         $client->setSecret(hash('sha512', random_bytes(32)));
         $client->setRedirect(...$input->getOption('redirect'));
+        $client->setGrants(...$input->getOption('grant'));
         $client->setConfidential((bool)!$input->getOption('confidential'));
         $client->setActive((bool)!$input->getOption('inactive'));
         return $client;

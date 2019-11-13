@@ -8,6 +8,7 @@
         <field name="name" type="string" length="128"/>
         <field name="secret" type="string" length="128"/>
         <field name="redirect" type="json_array"/>
+        <field name="grants" type="json_array"/>
         <field name="confidential" type="boolean"/>
         <field name="active" type="boolean"/>
     </entity>

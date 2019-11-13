@@ -26,6 +26,11 @@ final class ClearExpiredTokensCommand extends Command
      */
     private $refreshTokenRepository;
 
+    /**
+     * ClearExpiredTokensCommand constructor.
+     * @param AccessTokenRepositoryInterface $accessTokenRepository
+     * @param RefreshTokenRepositoryInterface $refreshTokenRepository
+     */
     public function __construct(
         AccessTokenRepositoryInterface $accessTokenRepository,
         RefreshTokenRepositoryInterface $refreshTokenRepository
@@ -37,6 +42,9 @@ final class ClearExpiredTokensCommand extends Command
         $this->refreshTokenRepository = $refreshTokenRepository;
     }
 
+    /**
+     *
+     */
     protected function configure(): void
     {
         $this
@@ -55,6 +63,11 @@ final class ClearExpiredTokensCommand extends Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

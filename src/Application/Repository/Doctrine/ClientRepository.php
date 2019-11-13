@@ -43,4 +43,22 @@ final class ClientRepository implements ClientRepositoryInterface
     {
         return $this->objectRepository->findOneBy(['id' => $clientId, 'active' => true]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save(Client $client): void
+    {
+        $this->entityManager->persist($client);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Client $client): void
+    {
+        $this->entityManager->remove($client);
+        $this->entityManager->flush();
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Presentation\Api\Rest\Controller;
 use App\Infrastructure\oAuth2Server\Bridge\Entity\User;
 use App\Infrastructure\oAuth2Server\Bridge\Repository\AuthCodeRepository;
 use App\Infrastructure\oAuth2Server\Bridge\Repository\RefreshTokenRepository;
+use Laminas\Diactoros\Response as Psr7Response;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
@@ -13,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Zend\Diactoros\Response as Psr7Response;
 
 final class AuthorizationController
 {
